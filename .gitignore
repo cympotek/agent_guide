@@ -7,6 +7,8 @@
 # 忽略 Python 相關文件
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
 *.egg-info/
 *.egg
 dist/
@@ -50,3 +52,13 @@ yarn-error.log*
 # 忽略測試相關文件
 coverage/
 .nyc_output/
+
+# 忽略 JSON 臨時文件
+pdf_content.json
+chapter_structure.json
+
+# 忽略 Python 腳本
+extract_pdf.py
+translate_to_markdown.py
+improved_translation.py
+complete_translation.py

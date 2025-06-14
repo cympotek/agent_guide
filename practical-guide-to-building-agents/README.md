@@ -1,21 +1,34 @@
 # 建構代理的實用指南
 
-本指南專為探索如何建構其首個代理的產品和工程團隊而設計，將來自眾多客戶部署的洞察提煉為實用且可行的最佳實務。
+## 概述
+
+本指南專為產品與工程團隊設計，旨在協助您探索如何建構首個代理（Agent）。我們將從眾多客戶部署中提煉出實用且可行的最佳實務，幫助您快速掌握代理的核心概念與實作技巧。
+
+無論您是剛開始接觸代理技術，還是希望優化現有系統，本指南都將提供清晰的框架與實用的建議，讓您能夠安全、有效地建構與部署代理。
+
+## 指南特色
+
+- **全面解析**：從代理的基本概念到進階設計模式，涵蓋所有關鍵主題
+- **實務導向**：基於真實客戶案例，提供可立即應用的最佳實務
+- **技術深度**：深入探討代理的設計、編排與安全機制
+- **易於理解**：以清晰的結構與範例，幫助您快速掌握核心概念
 
 ## 目錄
 
-1. [簡介](./01-introduction.md)
-2. [什麼是代理？](./02-what-is-an-agent.md)
-3. [何時應該建構代理？](./03-when-to-build-agent.md)
-4. [代理設計基礎](./04-agent-design-foundations.md)
-5. [編排](./05-orchestration.md)
-6. [護欄機制](./06-guardrails.md)
-7. [結論](./07-conclusion.md)
+1. [簡介](./01-introduction.md) - 了解代理的基本概念與應用場景
+2. [什麼是代理？](./02-what-is-an-agent.md) - 深入解析代理的核心特性與運作原理
+3. [何時應該建構代理？](./03-when-to-build-agent.md) - 判斷何時適合使用代理技術
+4. [代理設計基礎](./04-agent-design-foundations.md) - 掌握代理的核心組件與設計原則
+5. [編排](./05-orchestration.md) - 學習如何有效管理單一與多代理系統
+6. [護欄機制](./06-guardrails.md) - 確保代理安全運行的關鍵機制
+7. [結論](./07-conclusion.md) - 總結與未來發展方向
+
+## 如何使用本指南
+
+1. **初學者**：建議從第一章開始，逐步了解代理的基本概念與應用
+2. **進階使用者**：可直接跳至特定章節，深入探討您感興趣的主題
+3. **實作參考**：各章節均包含程式碼範例與實務建議，可直接應用於您的專案
 
 ---
 
-*本文件翻譯自 OpenAI 的《A Practical Guide to Building Agents》*
-
-## 資料來源
-
- - [A practical guide to building agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf)
+*本文件翻譯自 OpenAI 的《A Practical Guide to Building Agents》，旨在提供繁體中文讀者更易於理解的技術指南。*

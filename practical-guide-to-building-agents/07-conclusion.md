@@ -1,40 +1,20 @@
 # 結論
 
-Conclusion
-代理標誌著工作流程自動化的新時代, where 系統 can reason through ambiguity, take
-action across 工具, and handle multi-step tasks with a high degree of autonomy. Unlike simpler
-LLM 應用程式, 代理 execute 工作流程 end-to-end, making them well-suited for 使用案例
-that involve complex 決策, unstructured data, or brittle rule-based 系統.
+代理標誌著工作流程自動化的新時代，系統可以通過模糊性進行推理，跨工具採取行動，並以高度自主性處理多步驟任務。與更簡單的大型語言模型應用程式不同，代理端到端執行工作流程，使它們非常適合涉及複雜決策、非結構化資料或脆弱的基於規則系統的使用案例。
 
-To build reliable 代理, start with strong foundations: pair capable 模型 with well-defined 工具
-and clear, structured 指令. Use 編排 patterns that match your 複雜性 level,
-starting with a single 代理 and evolving to multi-代理 系統 only when needed. 護欄機制 are
-critical at every stage, from input filtering and 工具 use to human-in-the-loop intervention, helping
-ensure 代理 operate safely and predictably in 生產環境.
+要建構可靠的代理，從強大的基礎開始：將有能力的模型與明確定義的工具和清晰、結構化的指令配對。使用與您的複雜性水準匹配的編排模式，從單一代理開始，僅在需要時發展到多代理系統。護欄在每個階段都至關重要，從輸入過濾和工具使用到人工介入，有助於確保代理在生產環境中安全且可預測地運行。
 
-The path to successful 部署 isn’t all-or-nothing. Start small, validate with real 使用者, and
-grow capabilities over time. With the right foundations and an iterative approach, 代理 can
-deliver real 商業 value—automating not just tasks, but entire 工作流程 with intelligence
-and adaptability.
-If you’re exploring 代理 for your organization or preparing for your first 部署, feel free
-to reach out. Our 團隊 can provide the expertise, guidance, and hands-on support to ensure
-your success.
-32 A practical guide to building 代理
+成功部署的路徑不是全有或全無的。從小處開始，與真實使用者驗證，並隨著時間的推移增長能力。有了正確的基礎和迭代方法，代理可以提供真正的商業價值——不僅自動化任務，而且自動化具有智慧和適應性的整個工作流程。
 
-More resources
-API Platform
+如果您正在為您的組織探索代理或準備您的首次部署，請隨時聯繫。我們的團隊可以提供專業知識、指導和實務支援，以確保您的成功。
 
-OpenAI for 商業
+## 更多資源
 
-OpenAI Stories
+- **API平台**
+- **OpenAI商業版**
+- **OpenAI故事**
+- **ChatGPT企業版**
+- **OpenAI與安全**
+- **開發者文件**
 
-ChatGPT 企業
-
-OpenAI and Safety
-
-開發者 Docs
-
-OpenAI is an AI research and 部署 company. Our mission is to ensure that artificial general
-intelligence benefits all of humanity.
-33 A practical guide to building 代理
-
+OpenAI 是一家AI研究和部署公司。我們的使命是確保人工通用智慧造福全人類。

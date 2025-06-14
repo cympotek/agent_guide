@@ -1,148 +1,95 @@
 # 代理設計基礎
 
-代理 design
-foundations
 在最基本的形式中，代理由三個核心組件組成：
-### 01 模型 The LLM powering the 代理’s reasoning and 決策-making
-### 02 工具 代理可用來採取行動的外部函數或API
-### 03 指令 Explicit guidelines and 護欄機制 defining how the
-代理 behaves
-Here’s what this looks like in code when using OpenAI’s 代理 SDK. You can also implement the
-same concepts using your preferred library or building directly from scratch.
+
+### 01 模型
+驅動代理推理和決策制定的大型語言模型
+
+### 02 工具
+代理可用來採取行動的外部函數或API
+
+### 03 指令
+定義代理行為方式的明確指導方針和護欄
+
+以下是使用 OpenAI 的代理 SDK 時在程式碼中的樣子。您也可以使用您偏好的函式庫或從頭開始直接建構相同的概念。
+
 ```python
-weather_agent = 代理(
-
-name="Weather 代理",
-
-指令="You are a helpful 代理 who can talk to 使用者 about the
+weather_agent = Agent(
+    name="Weather agent",
+    instructions="You are a helpful agent who can talk to users about the weather.",
+    tools=[get_weather],
+)
 ```
-weather.",
 
-5
-工具=[get_weather],
+## 選擇您的模型
 
-6 )
-7 A practical guide to building 代理
+不同的模型在任務複雜性、延遲和成本方面有不同的優勢和權衡。正如我們將在下一節關於編排中看到的，您可能想要考慮為工作流程中的不同任務使用各種模型。
 
-Selecting your 模型
-Different 模型 have different strengths and tradeoffs related to task 複雜性, latency, and
-cost. As we’ll see in the next section on 編排, you might want to consider using a variety
-of 模型 for different tasks in the 工作流程.
+並非每個任務都需要最聰明的模型——簡單的檢索或意圖分類任務可能由更小、更快的模型處理，而更難的任務（如決定是否批准退款）可能受益於更有能力的模型。
 
-Not every task requires the smartest 模型—a simple retrieval or intent classification task may be
-handled by a smaller, faster 模型, while harder tasks like deciding whether to approve a refund
-may benefit from a more capable 模型.
+一個有效的方法是使用最有能力的模型為每個任務建構您的代理原型，以建立效能基準。從那裡，嘗試替換為較小的模型，看看它們是否仍能達到可接受的結果。這樣，您不會過早限制代理的能力，並且可以診斷較小模型成功或失敗的地方。
 
-An approach that works well is to build your 代理 prototype with the most capable 模型 for
-every task to establish a 效能 baseline. From there, try swapping in smaller 模型 to see
-if they still achieve acceptable results. This way, you don’t prematurely limit the 代理’s abilities,
-and you can diagnose where smaller 模型 succeed or fail.
-總結, the principles for choosing a 模型 are simple:
-### 01 Set up evals to establish a 效能 baseline
-### 02 Focus on meeting your accuracy target with the best 模型 available
-### 03 Optimize for cost and latency by replacing larger 模型 with smaller ones
-where possible
-You can find a comprehensive guide to selecting OpenAI 模型 here.
-8 A practical guide to building 代理
+總之，選擇模型的原則很簡單：
 
-Defining 工具
-工具 extend your 代理’s capabilities by using API from underlying 應用程式 or 系統. For
-legacy 系統 without API, 代理 can rely on computer-use 模型 to interact directly with
-those 應用程式 and 系統 through web and 應用程式 UIs—just as a human would.
+### 01 設置評估以建立效能基準
+### 02 專注於使用可用的最佳模型滿足您的準確性目標
+### 03 在可能的情況下，通過用較小的模型替換較大的模型來優化成本和延遲
 
-Each 工具 should have a standardized definition, enabling flexible, many-to-many relationships
-between 工具 and 代理. Well-documented, thoroughly tested, and reusable 工具 improve
-discoverability, simplify version management, and prevent redundant definitions.
+您可以在這裡找到選擇 OpenAI 模型的綜合指南。
 
-Broadly speaking, 代理 need three types of 工具:
-Type Description Examples
-Data Enable 代理 to retrieve context and Query transaction 資料庫 or
-information necessary for executing 系統 like CRMs, read PDF
-the 工作流程. documents, or search the web.
-Action Enable 代理 to interact with Send emails and texts, update a CRM
-系統 to take actions such as record, hand-off a 客戶 service
-adding new information to ticket to a human.
-資料庫, updating records, or
-sending messages.
-編排 代理 themselves can serve as 工具 Refund 代理, Research 代理,
-for other 代理—see the Manager Writing 代理.
-Pattern in the 編排 section.
-9 A practical guide to building 代理
+## 定義工具
 
-例如, here’s how you would equip the 代理 defined above with a series of 工具 when using
-the 代理 SDK:
+工具通過使用底層應用程式或系統的API來擴展您代理的能力。對於沒有API的舊系統，代理可以依靠計算機使用模型直接通過網頁和應用程式使用者介面與這些應用程式和系統互動，就像人類一樣。
+
+每個工具都應該有標準化的定義，在工具和代理之間啟用靈活的多對多關係。文件完善、經過徹底測試和可重複使用的工具提高了可發現性、簡化了版本管理並防止了冗餘定義。
+
+廣義上講，代理需要三種類型的工具：
+
+| 類型 | 描述 | 範例 |
+|------|------|------|
+| 資料 | 使代理能夠檢索執行工作流程所需的上下文和資訊 | 查詢交易資料庫或CRM等系統、讀取PDF文件或搜索網路 |
+| 行動 | 使代理能夠與系統互動，採取諸如將新資訊添加到資料庫、更新記錄或發送訊息等行動 | 發送電子郵件和簡訊、更新CRM記錄、將客戶服務工單移交給人工 |
+| 編排 | 代理本身可以作為其他代理的工具——請參閱編排部分中的管理者模式 | 退款代理、研究代理、寫作代理 |
+
+例如，以下是使用代理SDK時如何為上面定義的代理配備一系列工具：
+
 ```python
-from 代理 import 代理, WebSearchTool, function_tool
+from agents import Agent, WebSearchTool, function_tool
 
-```
 @function_tool
-
-3
 def save_results(output):
+    db.insert({"output": output,"timestamp": datetime.time()})
+    return "File saved"
 
-4
-db.insert({"output": output,"timestamp": datetime.time()})
-
-5
-return "File saved"
-
-
-6
-
-7
-search_agent = 代理(
-
-8
-name="Search 代理",
-
-8
-指令="Help the 使用者 search the internet and save results if
-10
-asked.",
-
-11
-工具=[WebSearchTool(),save_results],
-
-12 )
-As the number of required 工具 increases, consider splitting tasks across multiple 代理
-(see 編排).
-10 A practical guide to building 代理
-
-Configuring 指令
-High-quality 指令 are essential for any LLM-powered app, but especially critical for 代理.
-Clear 指令 reduce ambiguity and improve 代理 決策-making, resulting in smoother
-工作流程 execution and fewer errors.
-最佳實務 for 代理 指令
-Use existing documents When creating routines, use existing operating procedures,
-support scripts, or policy documents to create LLM-friendly
-routines. In 客戶 service 例如, routines can roughly
-map to individual articles in your knowledge base.
-Prompt 代理 to break Providing smaller, clearer steps from dense resources
-down tasks helps minimize ambiguity and helps the 模型 better
-follow 指令.
-Define clear actions Make sure every step in your routine corresponds to a specific
-action or output. 例如, a step might instruct the 代理
-to ask the 使用者 for their order number or to call an API to
-retrieve account details. Being explicit about the action (and
-even the wording of a 使用者-facing message) leaves less room
-for errors in interpretation.
-Capture edge cases Real-world interactions often create 決策 points such as
-how to proceed when a 使用者 provides incomplete information
-or asks an unexpected question. A robust routine anticipates
-common variations and includes 指令 on how to handle
-them with conditional steps or branches such as an alternative
-step if a required piece of info is missing.
-11 A practical guide to building 代理
-
-You can use advanced 模型, like o1 or o3-mini, to automatically generate 指令 from
-existing documents. Here’s a sample prompt illustrating this approach:
-```unset
-“You are an expert in writing 指令 for an LLM 代理. Convert the
+search_agent = Agent(
+    name="Search agent",
+    instructions="Help the user search the internet and save results if asked.",
+    tools=[WebSearchTool(), save_results],
+)
 ```
-following help center document into a clear set of 指令, written in
-a numbered list. The document will be a policy followed by an LLM. Ensure
-that there is no ambiguity, and that the 指令 are written as
-directions for an 代理. The help center document to convert is the
-following {{help_center_doc}}”
-12 A practical guide to building 代理
 
+隨著所需工具數量的增加，考慮將任務分散到多個代理（參見編排）。
+
+## 配置指令
+
+高品質的指令對於任何大型語言模型驅動的應用程式都至關重要，但對代理尤其重要。清晰的指令減少了歧義並改善了代理決策制定，導致更順暢的工作流程執行和更少的錯誤。
+
+### 代理指令的最佳實務
+
+**使用現有文件**  
+在創建例程時，使用現有的操作程序、支援腳本或政策文件來創建大型語言模型友好的例程。例如，在客戶服務中，例程可以大致映射到您知識庫中的各個文章。
+
+**提示代理分解任務**  
+從密集資源提供更小、更清晰的步驟有助於最小化歧義並幫助模型更好地遵循指令。
+
+**定義清晰的行動**  
+確保您例程中的每個步驟都對應於特定的行動或輸出。例如，一個步驟可能指示代理詢問使用者的訂單號碼或呼叫API來檢索帳戶詳細資訊。明確說明行動（甚至是面向使用者的訊息的措辭）為解釋錯誤留下了更少的空間。
+
+**捕獲邊緣情況**  
+現實世界的互動經常創建決策點，例如當使用者提供不完整資訊或提出意外問題時如何進行。健全的例程預期常見變化並包括如何處理它們的指令，具有條件步驟或分支，例如如果缺少所需資訊片段的替代步驟。
+
+您可以使用進階模型，如 o1 或 o3-mini，從現有文件自動生成指令。以下是說明此方法的範例提示：
+
+```
+"You are an expert in writing instructions for an LLM agent. Convert the following help center document into a clear set of instructions, written in a numbered list. The document will be a policy followed by an LLM. Ensure that there is no ambiguity, and that the instructions are written as directions for an agent. The help center document to convert is the following {{help_center_doc}}"
+```
